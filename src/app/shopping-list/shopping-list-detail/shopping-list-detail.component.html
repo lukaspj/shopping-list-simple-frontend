@@ -1,0 +1,57 @@
+<div class="card" [class.gray]="isDone">
+  <div class="card-divider card-header">
+    <h1>Review your shopping list</h1>
+  </div>
+  <div class="card-section">
+    <a *ngIf="!isActive" class="button primary" (click)="activateList()">Activate</a>
+    <a *ngIf="!isDone" class="button primary" (click)="finishList()">Finish</a>
+    <table>
+      <thead>
+        <tr>
+          <th>Amount</th>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Notes</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of list?.items">
+          <td>{{item.amount}}</td>
+          <td>{{getNameOfItem(item.item_id)}}</td>
+          <td>{{item.item_id}}</td>
+          <td>{{item.notes}}</td>
+          <td><a class="button alert" (click)="removeItem(item)">Remove</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <a class="button primary" (click)="triggerAddMenu()">Add Item</a>
+      <div [hidden]="!addMenuShown">
+        <form [formGroup]="newItemForm" (submit)="onSubmit()">
+          <label>Item name:
+            <select formControlName="id">
+              <option *ngFor="let item of items" [value]="item.item_id">
+                {{ item.name }}
+              </option>
+            </select>
+          </label>
+          <label>Amount:
+            <input type="number" formControlName="amount" />
+          </label>
+          <label>Notes:
+            <input type="text" formControlName="notes" />
+          </label>
+          <input type="submit" class="button primary" value="Submit the new item" [disabled]="!newItemForm.valid" />
+        </form>
+      </div>
+    </div>
+    <a class="button primary" [routerLink]="['/shoppinglist']">Go Back</a>
+    <a class="button alert float-right" (click)="confirmDelete = true;">Delete</a>
+    <div class="callout warning" [hidden]="!confirmDelete">
+      Are you sure you want to delete the list?
+      <a class="button warning" (click)="deleteList()">Yes</a>
+      <a class="button primary" (click)="confirmDelete = false;">No</a>
+    </div>
+  </div>
+</div>

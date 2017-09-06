@@ -1,0 +1,38 @@
+@import "~foundation-sites/scss/foundation";
+
+@include foundation-everything(true);
+
+.button {
+  border-radius: 5px;
+}
+
+.no-js {
+  @include breakpoint(small only) {
+    .top-bar {
+      display: none;
+    }
+  }
+
+  @include breakpoint(medium) {
+    .title-bar {
+      display: none;
+    }
+  }
+}
+
+.card-header {
+  background: #3183be;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  h1 {
+    font-size: x-large;
+  }
+}
+
+.card {
+  border-color: #3183be;
+  border-radius: 5px;
+}

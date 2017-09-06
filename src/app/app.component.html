@@ -1,0 +1,27 @@
+<div class="title-bar" data-responsive-toggle="topbar-menu" data-hide-for="medium">
+  <button class="menu-icon" type="button" data-toggle></button>
+  <div class="title-bar-title">Menu</div>
+</div>
+
+<div class="top-bar" id="topbar-menu" data-animate="hinge-in-from-top spin-out">
+  <div class="top-bar-left">
+    <ul class="dropdown menu" data-dropdown-menu>
+      <li class="menu-text">Site Title</li>
+      <li><a [routerLink]="['/']">Home</a></li>
+      <li><a [routerLink]="['/shoppinglist']">Shopping Lists</a></li>
+      <li><a [routerLink]="['/shoppingitem']">Shopping items</a></li>
+      <li>
+        <a href="#">Sample</a>
+        <ul class="menu vertical">
+          <li><a href="#">Sample1</a></li>
+          <li><a href="#">Sample2</a></li>
+          <li><a href="#">Sample3</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="content-container">
+  <router-outlet></router-outlet>
+</div>
