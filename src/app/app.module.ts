@@ -2,11 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
-import { ShoppingItemModule } from './shopping-item/shopping-item.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeModule } from './home/home.module';
 
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,9 +14,9 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    ShoppingListModule,
-    ShoppingItemModule,
+    HttpClientModule,
     HomeModule,
+    ShoppingListModule,
     AppRoutingModule
   ],
   providers: [],

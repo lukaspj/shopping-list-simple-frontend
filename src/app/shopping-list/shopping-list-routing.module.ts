@@ -1,19 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ShoppingListOverviewComponent } from './shopping-list-overview/shopping-list-overview.component';
-import { ShoppingListDetailComponent } from './shopping-list-detail/shopping-list-detail.component';
+import { ListsModule } from './lists/lists.module';
+import { ItemsModule } from './items/items.module';
 
-const shoppingListRoutes: Routes = [
-  { path: 'shoppinglist', component: ShoppingListOverviewComponent },
-  { path: 'shoppinglist/:id', component: ShoppingListDetailComponent }
+export const _shoppingListRoutes: Routes = [
+  {
+    path: 'shopping-list',
+    children: [
+      {
+        path: 'items',
+        loadChildren: () => ItemsModule
+      },
+      {
+        path: 'lists',
+        loadChildren: () => ListsModule
+      }
+    ]
+  }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forChild(shoppingListRoutes),
+    RouterModule.forChild(_shoppingListRoutes)
   ],
   exports: [
     RouterModule
-  ],
+  ]
 })
 export class ShoppingListRoutingModule { }

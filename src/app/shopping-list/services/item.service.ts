@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { IItem } from '../models/item';
 import { Observable } from 'rxjs/Observable';
-import { IItem } from '../shopping-list/models';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
-export class ShoppingItemService {
+export class ItemService {
   private _itemServiceUrl = 'http://sample-db-service.flynn.lukasj.org/items/';
 
   constructor(

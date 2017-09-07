@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ShoppingListService } from '../shopping-list.service';
-import { IItem, IItemList, LIST_STATUS } from '../models';
-import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IList } from '../../models/list';
+import { IItem } from '../../models/item';
+import { ListService } from '../../services/list.service';
+import { ListedItemService } from '../../services/listed-item.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ItemService } from '../../services/item.service';
 
 @Component({
-  selector: 'app-shopping-list',
-  templateUrl: './shopping-list-detail.component.html',
-  styleUrls: [
-    './shopping-list-detail.component.scss'
-  ]
+  templateUrl: './lists-details.component.html',
+  styleUrls: [ './lists-details.component.scss' ]
 })
-export class ShoppingListDetailComponent implements OnInit {
+export class ListsDetailsComponent implements OnInit {
 
   isInactive = false;
   isActive = false;
@@ -20,18 +20,20 @@ export class ShoppingListDetailComponent implements OnInit {
   confirmDelete = false;
   addMenuShown = false;
   newItemForm: FormGroup;
-  _list: IItemList;
-  get list(): IItemList {
+  _list: IList;
+  get list(): IList {
     return this._list;
   }
-  set list(list: IItemList) {
+  set list(list: IList) {
     this._list = list;
     this.updateListStatus();
   }
   items: IItem[];
 
   constructor(
-    private _shoppingListService: ShoppingListService,
+    private _listService: ListService,
+    private _listedItemService: ListedItemService,
+    private _itemService: ItemService,
     private _route: ActivatedRoute,
     private _router: Router,
     private _formBuilder: FormBuilder
@@ -45,7 +47,7 @@ export class ShoppingListDetailComponent implements OnInit {
     });
 
     const id = +this._route.snapshot.paramMap.get('id');
-    this._shoppingListService.getItems()
+    this._itemService.getItems()
       .subscribe(items => {
         this.items = items;
         this.updateList(id);
@@ -58,12 +60,12 @@ export class ShoppingListDetailComponent implements OnInit {
 
   deleteList() {
     if (this.list) {
-      this._shoppingListService.deleteList(this.list)
+      this._listService.deleteList(this.list)
         .subscribe(err => {
           if (err) {
             console.log(err);
           } else {
-            this._router.navigate([ '/shoppinglist' ]);
+            this._router.navigate([ '/shopping-list/lists' ]);
           }
         });
     }
@@ -75,7 +77,7 @@ export class ShoppingListDetailComponent implements OnInit {
 
   onSubmit() {
     const value = this.newItemForm.value;
-    this._shoppingListService.createListItem(
+    this._listedItemService.create(
       this.list.list_id,
       value.id,
       value.amount,
@@ -89,33 +91,36 @@ export class ShoppingListDetailComponent implements OnInit {
   }
 
   updateList(id) {
-    this._shoppingListService.getList(id)
-      .subscribe(list => this.list = list);
+    this._listService.getList(id)
+      .subscribe(list => {
+        this._listedItemService.setItemsForList(list)
+          .subscribe(list_with_items => this.list = list_with_items);
+      });
   }
 
   removeItem(item) {
-    this._shoppingListService.deleteListItem(item)
+    this._listedItemService.delete(item)
       .subscribe(x => {
         this.list.items.splice(this.list.items.indexOf(item), 1);
       });
   }
 
   activateList() {
-    this.list.status = LIST_STATUS.ACTIVE;
+    this.list.status = 1;
     this.updateListStatus();
   }
 
   finishList() {
-    this.list.status = LIST_STATUS.DONE;
+    this.list.status = 2;
     this.updateListStatus();
   }
 
   private updateListStatus() {
-    this._shoppingListService.updateList(this.list)
+    this._listService.updateList(this.list)
       .subscribe(() => {
-        this.isInactive = this.list.status === LIST_STATUS.INACTIVE;
-        this.isActive = this.list.status === LIST_STATUS.ACTIVE;
-        this.isDone = this.list.status === LIST_STATUS.DONE;
-    });
+        this.isInactive = this.list.status === 0;
+        this.isActive = this.list.status === 1;
+        this.isDone = this.list.status === 2;
+      });
   }
 }

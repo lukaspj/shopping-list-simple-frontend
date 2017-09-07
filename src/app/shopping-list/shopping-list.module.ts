@@ -1,26 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShoppingListRoutingModule } from './shopping-list-routing.module';
-import { ShoppingListOverviewComponent } from './shopping-list-overview/shopping-list-overview.component';
-import { ShoppingListDetailComponent } from './shopping-list-detail/shopping-list-detail.component';
-import { HttpClientModule } from '@angular/common/http';
-import { ShoppingListService } from './shopping-list.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LIST_STATUS } from './models';
+import { ListService } from './services/list.service';
+import { ItemService } from './services/item.service';
+import { ListedItemService } from './services/listed-item.service';
 
 @NgModule({
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    ShoppingListRoutingModule,
-    HttpClientModule
+    ShoppingListRoutingModule
   ],
-  declarations: [
-    ShoppingListOverviewComponent,
-    ShoppingListDetailComponent
-  ],
+  declarations: [],
   providers: [
-    ShoppingListService
+    ListService,
+    ItemService,
+    ListedItemService
   ]
 })
 export class ShoppingListModule { }

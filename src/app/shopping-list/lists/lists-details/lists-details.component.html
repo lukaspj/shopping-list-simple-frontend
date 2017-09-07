@@ -7,22 +7,22 @@
     <a *ngIf="!isDone" class="button primary" (click)="finishList()">Finish</a>
     <table>
       <thead>
-        <tr>
-          <th>Amount</th>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Notes</th>
-          <th></th>
-        </tr>
+      <tr>
+        <th>Amount</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Notes</th>
+        <th></th>
+      </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of list?.items">
-          <td>{{item.amount}}</td>
-          <td>{{getNameOfItem(item.item_id)}}</td>
-          <td>{{item.item_id}}</td>
-          <td>{{item.notes}}</td>
-          <td><a class="button alert" (click)="removeItem(item)">Remove</a></td>
-        </tr>
+      <tr *ngFor="let item of list?.items">
+        <td>{{item.amount}}</td>
+        <td>{{getNameOfItem(item.item_id)}}</td>
+        <td>{{item.item_id}}</td>
+        <td>{{item.notes}}</td>
+        <td><a class="button alert" (click)="removeItem(item)">Remove</a></td>
+      </tr>
       </tbody>
     </table>
     <div>
@@ -46,7 +46,7 @@
         </form>
       </div>
     </div>
-    <a class="button primary" [routerLink]="['/shoppinglist']">Go Back</a>
+    <a class="button primary" [routerLink]="['/shopping-list/lists']">Go Back</a>
     <a class="button alert float-right" (click)="confirmDelete = true;">Delete</a>
     <div class="callout warning" [hidden]="!confirmDelete">
       Are you sure you want to delete the list?

@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ItemService } from '../../services/item.service';
 import { Router } from '@angular/router';
-import { ShoppingItemService } from '../shopping-item.service';
 
 @Component({
-  selector: 'app-shopping-item-create',
-  templateUrl: './shopping-item-create.component.html',
-  styleUrls: [ './shopping-item-create.component.scss' ]
+  templateUrl: './items-create.component.html',
+  styleUrls: [ './items-create.component.scss' ]
 })
-export class ShoppingItemCreateComponent implements OnInit {
+export class ItemsCreateComponent implements OnInit {
 
   itemForm: FormGroup;
 
   constructor(
-    private _shoppingItemService: ShoppingItemService,
     private _formBuilder: FormBuilder,
+    private _itemService: ItemService,
     private _router: Router
   ) { }
 
@@ -27,14 +26,13 @@ export class ShoppingItemCreateComponent implements OnInit {
 
   onSubmit() {
     const value = this.itemForm.value;
-    this._shoppingItemService.createItem(value.name, value.estprice)
+    this._itemService.createItem(value.name, value.estprice)
       .subscribe(res => {
         if (res) {
           console.log(res);
         } else {
-          this._router.navigate([ '/shoppingitem' ]);
+          this._router.navigate([ '/shopping-list/items' ]);
         }
       });
   }
-
 }

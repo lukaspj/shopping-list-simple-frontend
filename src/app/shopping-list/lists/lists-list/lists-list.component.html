@@ -15,7 +15,7 @@
       <tr *ngFor="let list of getRelevantLists()">
         <td>{{list.list_id}}</td>
         <td>{{list.items?.length}}</td>
-        <td><a [routerLink]="['/shoppinglist', list.list_id]" class="button primary">See details</a></td>
+        <td><a [routerLink]="['/shopping-list/lists', list.list_id]" class="button primary">See details</a></td>
       </tr>
       </tbody>
     </table>
