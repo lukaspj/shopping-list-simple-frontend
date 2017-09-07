@@ -27,7 +27,8 @@ export class ListsListComponent implements OnInit {
 
   getRelevantLists(): IList[] {
     return this.lists
-      .filter(x => x.status !== 2);
+      .filter(x => x.status !== 2)
+      .sort((x, y) => x.list_id - y.list_id);
   }
 
   createList() {
