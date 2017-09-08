@@ -4,13 +4,12 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "http-server dist/",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "preinstall": "npm install -g http-server",
-    "postinstall": "HOME=/ ng build --prod --aot"
+    "deploy": "npm install -g http-server && HOME=/ ng build --prod --aot && http-server dist/"
   },
   "//": "The above 'HOME=/' is necessary in order to deploy with a Heroku buildscript",
   "private": true,

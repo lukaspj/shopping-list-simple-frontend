@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { ListsModule } from './lists/lists.module';
 import { ItemsModule } from './items/items.module';
 
-export function loadItemsModule() {
-  return ItemsModule;
-}
-export function loadListsModule() {
-  return ListsModule;
-}
+// This is needed for AOT to work, as we are lazy-loading the modules below
+const dynamically_loaded_modules = [
+  ItemsModule,
+  ListsModule
+];
+
 
 export const _shoppingListRoutes: Routes = [
   {
@@ -16,11 +16,11 @@ export const _shoppingListRoutes: Routes = [
     children: [
       {
         path: 'items',
-        loadChildren: loadItemsModule
+        loadChildren: './items/items.module#ItemsModule'
       },
       {
         path: 'lists',
-        loadChildren: loadListsModule
+        loadChildren: './lists/lists.module#ListsModule'
       }
     ]
   }
