@@ -1,6 +1,4 @@
-@import "~foundation-sites/scss/foundation";
-
-@include foundation-everything(true);
+@import "main";
 
 $style-border-radius: 0.25em;
 
@@ -39,7 +37,7 @@ $style-border-radius: 0.25em;
 
 .card {
   border: 0.01em solid #3183be;
-  
+
   @include breakpoint(medium up) {
     border-radius: 0.25em;
   }
