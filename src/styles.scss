@@ -26,8 +26,11 @@ $style-border-radius: 0.25em;
   background: #3183be;
   color: #ffffff;
   padding: 0.5rem 1rem;
-  border-top-left-radius: $style-border-radius;
-  border-top-right-radius: $style-border-radius;
+
+  @include breakpoint(medium up) {
+    border-top-left-radius: $style-border-radius;
+    border-top-right-radius: $style-border-radius;
+  }
 
   h1 {
     font-size: x-large;
@@ -36,5 +39,8 @@ $style-border-radius: 0.25em;
 
 .card {
   border: 0.01em solid #3183be;
-  border-radius: 0.25em;
+  
+  @include breakpoint(medium up) {
+    border-radius: 0.25em;
+  }
 }
