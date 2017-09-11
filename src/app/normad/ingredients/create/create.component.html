@@ -1,0 +1,26 @@
+<div class="card">
+  <div class="card-divider card-header shopping-list-header">
+    <h1>Add a new ingredient</h1>
+  </div>
+  <div class="card-section">
+
+    <form [formGroup]="ingredientForm" (ngSubmit)="onSubmit()" novalidate>
+      <label>Name:
+        <input type="text" formControlName="name">
+      </label>
+      <label>Description:
+        <input type="text" formControlName="description">
+      </label>
+      <label>Image:
+        <input type="text" formControlName="image">
+      </label>
+      <label>Estimated price:
+        <input type="number" formControlName="estprice">
+      </label>
+      <input type="submit" [disabled]="!ingredientForm.valid" class="button primary">
+    </form>
+
+    <p>{{ ingredientForm.value | json }}</p>
+    <p>{{ ingredientForm.status | json }}</p>
+  </div>
+</div>

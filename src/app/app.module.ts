@@ -7,6 +7,7 @@ import { HomeModule } from './home/home.module';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NormadModule } from './normad/normad.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     HomeModule,
     ShoppingListModule,
+    NormadModule,
     AppRoutingModule
   ],
   providers: [],

@@ -18,6 +18,12 @@ export const environment = {
       'delete': 'http://sample-db-service.flynn.lukasj.org/list_items/delete',
       'get': (id) => `http://sample-db-service.flynn.lukasj.org/list_items/${id}`,
       'getAll': 'http://sample-db-service.flynn.lukasj.org/list_items/'
+    },
+    recipes: {
+      'create': 'http://sample-db-service.flynn.lukasj.org/recipes/create'
+    },
+    ingredients: {
+
     }
   }
 };

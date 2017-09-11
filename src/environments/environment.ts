@@ -23,6 +23,14 @@ export const environment = {
       'delete': 'http://sample-db-service.flynn.lukasj.org/list_items/delete',
       'get': (id) => `http://sample-db-service.flynn.lukasj.org/list_items/${id}`,
       'getAll': 'http://sample-db-service.flynn.lukasj.org/list_items/'
+    },
+    recipes: {
+      'create': 'http://sample-db-service.flynn.lukasj.org/recipes/create',
+      'list': 'http://sample-db-service.flynn.lukasj.org/recipes'
+    },
+    ingredients: {
+      'list': 'http://sample-db-service.flynn.lukasj.org/ingredients',
+      'get': (id) => `http://sample-db-service.flynn.lukasj.org/ingredients/${id}`
     }
   }
 };

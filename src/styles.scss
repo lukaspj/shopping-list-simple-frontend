@@ -1,5 +1,7 @@
 @import "main";
 
+@include foundation-everything(true);
+
 $style-border-radius: 0.25em;
 
 .button {
