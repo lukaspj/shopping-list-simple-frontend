@@ -15,7 +15,9 @@ export const environment = {
     },
     listed_item: {
       'create': 'http://sample-db-service.flynn.lukasj.org/list_items/create',
-      'delete': 'http://sample-db-service.flynn.lukasj.org/list_items/delete'
+      'delete': 'http://sample-db-service.flynn.lukasj.org/list_items/delete',
+      'get': (id) => `http://sample-db-service.flynn.lukasj.org/list_items/${id}`,
+      'getAll': 'http://sample-db-service.flynn.lukasj.org/list_items/'
     }
   }
 };
