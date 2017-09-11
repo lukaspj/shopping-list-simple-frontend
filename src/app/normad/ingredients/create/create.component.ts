@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IngredientService } from '../../services/ingredient.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -11,7 +13,9 @@ export class CreateComponent implements OnInit {
   ingredientForm: FormGroup;
 
   constructor(
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private _ingredientService: IngredientService,
+    private _router: Router
   ) { }
 
   ngOnInit() {
@@ -23,4 +27,15 @@ export class CreateComponent implements OnInit {
     });
   }
 
+  onSubmit() {
+    const value = this.ingredientForm.value;
+    this._ingredientService.create(value.name, value.description, value.image, value.estprice)
+      .subscribe(res => {
+        if (res) {
+          console.log(res);
+        } else {
+          this._router.navigate([ '/ingredients' ]);
+        }
+      });
+  }
 }

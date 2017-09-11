@@ -21,6 +21,16 @@ export class IngredientService {
       .catch(this.handleError);
   }
 
+  create(name, description, image, estprice) {
+    return this._http.post(environment.serviceUrls.ingredients.create, {
+      name: name,
+      description: description,
+      image: image,
+      estprice: estprice
+    })
+      .catch(this.handleError);
+  }
+
   private handleError(err: HttpErrorResponse) {
     console.log(`Error in IngredientService, the error is: ${err.message}`);
     return Observable.throw(err.message);

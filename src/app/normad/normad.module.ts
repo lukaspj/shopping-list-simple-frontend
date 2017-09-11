@@ -10,7 +10,9 @@ import { RecipeService } from './services/recipe.service';
     CommonModule,
     NormadRoutingModule
   ],
-  declarations: [HomeComponent],
+  declarations: [
+    HomeComponent
+  ],
   exports: [
     NormadRoutingModule
   ],

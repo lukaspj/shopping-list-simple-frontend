@@ -8,14 +8,14 @@
       <label>Name:
         <input type="text" formControlName="name">
       </label>
-      <label>Description:
-        <input type="text" formControlName="description">
-      </label>
       <label>Image:
         <input type="text" formControlName="image">
       </label>
       <label>Estimated price:
         <input type="number" formControlName="estprice">
+      </label>
+      <label>Description:
+        <app-md-editor (modelChange)="ingredientForm.value.description = $event"></app-md-editor>
       </label>
       <input type="submit" [disabled]="!ingredientForm.valid" class="button primary">
     </form>
