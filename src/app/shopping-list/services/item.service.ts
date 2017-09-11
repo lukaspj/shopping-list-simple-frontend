@@ -3,17 +3,16 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { IItem } from '../models/item';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class ItemService {
-  private _itemServiceUrl = 'http://sample-db-service.flynn.lukasj.org/items/';
-
   constructor(
     private _http: HttpClient
   ) { }
 
   createItem(name, estprice) {
-    return this._http.post(this._itemServiceUrl + 'create', {
+    return this._http.post(environment.serviceUrls.items.create, {
       name: name,
       estprice: estprice
     })
@@ -21,14 +20,14 @@ export class ItemService {
   }
 
   deleteItem(item: IItem) {
-    return this._http.post(this._itemServiceUrl + 'delete', {
+    return this._http.post(environment.serviceUrls.items.delete, {
       id: item.item_id
     })
       .catch(this.handleError);
   }
 
   getItems(): Observable<IItem[]> {
-    return this._http.get<IItem[]>(this._itemServiceUrl)
+    return this._http.get<IItem[]>(environment.serviceUrls.items.getAll)
       .catch(this.handleError);
   }
 

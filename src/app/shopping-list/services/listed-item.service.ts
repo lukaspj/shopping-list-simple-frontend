@@ -4,17 +4,16 @@ import { IListedItem } from '../models/listed-item';
 import { Observable } from 'rxjs/Observable';
 import { IList } from '../models/list';
 import 'rxjs/add/operator/map';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class ListedItemService {
-  private _listedItemsServiceUrl = 'http://sample-db-service.flynn.lukasj.org/list_items/';
-
   constructor(
     private _http: HttpClient
   ) { }
 
   create(list_id, item_id, amount, notes) {
-    return this._http.post(this._listedItemsServiceUrl + 'create', {
+    return this._http.post(environment.serviceUrls.listed_item.create, {
       list_id: list_id,
       item_id: item_id,
       amount: amount,
@@ -24,19 +23,19 @@ export class ListedItemService {
   }
 
   delete(item: IListedItem) {
-    return this._http.post(this._listedItemsServiceUrl + 'delete', {
+    return this._http.post(environment.serviceUrls.listed_item.delete, {
       id: item.list_item_id
     })
       .catch(this.handleError);
   }
 
   setItemsForList(list: IList) {
-    return this._http.get<IListedItem[]>(this._listedItemsServiceUrl + list.list_id)
+    return this._http.get<IListedItem[]>(environment.serviceUrls.listed_item.get(list.list_id))
       .map(items => { list.items = items; return list; });
   }
 
   setItemsForLists(lists: IList[]) {
-    return this._http.get<IListedItem[]>(this._listedItemsServiceUrl)
+    return this._http.get<IListedItem[]>(environment.serviceUrls.listed_item.getAll)
       .map(items => {
         for (let i = 0; i < lists.length; ++i) {
           lists[i].items = items.filter(x => x.list_id === lists[i].list_id);
