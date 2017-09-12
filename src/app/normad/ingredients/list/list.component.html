@@ -3,17 +3,19 @@
     <h1>Ingredients</h1>
   </div>
   <div class="card-section">
+    <div class="search-box">
+      <input #searchBox type="text" placeholder="Search in ingredients" (keyup)="search(searchBox.value)">
+    </div>
     <table class="">
       <thead>
       <tr>
         <th>Image</th>
         <th>Name</th>
         <th>Estimated price</th>
-        <th>Delete</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let ingredient of ingredients">
+      <tr *ngFor="let ingredient of ingredients | async">
         <td><img src="{{ingredient.image}}" alt="{{ingredient.name}}" /></td>
         <td>
           <a [routerLink]="['/ingredients/', ingredient.id]">
@@ -21,7 +23,6 @@
           </a>
         </td>
         <td>{{ingredient.estprice | currency:'DKK':true:'1.2-2'}}</td>
-        <td><a class="button alert" (click)="console.log('Delete:'+ ingredient.id)">Delete</a></td>
       </tr>
       </tbody>
     </table>

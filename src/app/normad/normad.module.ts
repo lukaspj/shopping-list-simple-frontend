@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { NormadRoutingModule } from './normad-routing.module';
 import { IngredientService } from './services/ingredient.service';
 import { RecipeService } from './services/recipe.service';
+import { IngredientSearchService } from './services/ingredient-search.service';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { RecipeService } from './services/recipe.service';
   ],
   providers: [
     IngredientService,
+    IngredientSearchService,
     RecipeService
   ]
 })
