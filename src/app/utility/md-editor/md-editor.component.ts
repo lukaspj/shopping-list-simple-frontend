@@ -23,7 +23,8 @@ export class MdEditorComponent implements OnInit, AfterViewInit {
     const simpleMde: SimpleMDE = new SimpleMDE({
       element: this.mdarea.nativeElement,
       forceSync: true,
-      status: false
+      status: false,
+      spellChecker: false
     });
 
     if (this.model) {
