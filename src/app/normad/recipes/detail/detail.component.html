@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-divider card-header shopping-list-header">
+    <h1>Recipe</h1>
+  </div>
+  <div class="card-section">
+    <div class="recipe" *ngIf="recipe">
+      <h1>{{recipe.name}}</h1>
+      <hr />
+      <div class="recipe-description">
+        <markdown>{{recipe.description}}</markdown>
+      </div>
+      <hr />
+      <div class="recipe-steps">
+        <markdown>{{recipe.steps}}</markdown>
+      </div>
+      <hr />
+      <a class="button primary" [routerLink]="['/recipes']">Go back</a>
+      <a class="button alert" (click)="delete()">Delete</a>
+      <a class="button secondary" [routerLink]="['/recipes/edit', recipe.id]">Edit</a>
+      <p class="recipe-meta text-right">
+        ID: {{recipe.id}}, Created: {{recipe.created_at | date:'dd. MMMM yy'}}
+      </p>
+    </div>
+  </div>
+</div>

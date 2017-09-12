@@ -22,7 +22,6 @@ export class ListComponent implements OnInit {
   private searchTerms = new BehaviorSubject<string>('');
 
   constructor(
-    private _ingredientService: IngredientService,
     private _ingredientSearchService: IngredientSearchService
   ) { }
 

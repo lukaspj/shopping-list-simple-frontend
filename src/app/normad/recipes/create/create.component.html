@@ -1,0 +1,59 @@
+<div class="card">
+  <div class="card-divider card-header shopping-list-header">
+    <h1>Add a new recipe</h1>
+  </div>
+  <div class="card-section">
+
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" novalidate>
+      <label>Name:
+        <input type="text" formControlName="name">
+      </label>
+      <label>Image:
+        <input type="text" formControlName="image">
+      </label>
+      <label>Description:
+        <app-md-editor (modelChange)="recipeForm.value.description = $event"></app-md-editor>
+      </label>
+      <label>Steps:
+        <app-md-editor (modelChange)="recipeForm.value.steps = $event"></app-md-editor>
+      </label>
+      <div class="new-ingredient-form">
+        <form [formGroup]="newIngredientForm" (submit)="onSubmitNewIngredient($event)">
+          <div class="grid-x">
+            <div class="cell small-2">
+              <span>Add a new ingredient:</span>
+            </div>
+            <div class="cell small-2">
+              <input type="number" class="new-ingredient-amount" formControlName="amount" />
+            </div>
+            <div class="cell small-3">
+              <select class="new-ingredient-unit-select" formControlName="unit">
+                <option *ngFor="let unit of units" [value]="unit.abbr">
+                  {{ unit.name }}
+                </option>
+              </select>
+            </div>
+            <div class="cell small-3">
+              <select class="new-ingredient-select" formControlName="ingredient">
+                <option *ngFor="let ingredient of ingredients" [value]="ingredient.id">
+                  {{ ingredient.name }}
+                </option>
+              </select>
+            </div>
+            <div class="cell small-2">
+              <input type="submit" class="button primary" value="Add" [disabled]="!newIngredientForm.valid" />
+            </div>
+          </div>
+        </form>
+      </div>
+      Ingredients:
+      <ul>
+        <li *ngFor="let ingredient of recipeIngredients">
+          {{ingredient.amount}}{{ingredient.unit}} {{getIngredient(ingredient.ingredient_id).name}}
+        </li>
+      </ul>
+      <br />
+      <input type="submit" [disabled]="!recipeForm.valid" class="button primary">
+    </form>
+  </div>
+</div>

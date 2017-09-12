@@ -5,6 +5,8 @@ import { NormadRoutingModule } from './normad-routing.module';
 import { IngredientService } from './services/ingredient.service';
 import { RecipeService } from './services/recipe.service';
 import { IngredientSearchService } from './services/ingredient-search.service';
+import { RecipeSearchService } from './services/recipe-search.service';
+import { IngredientUnitService } from './services/ingredient-unit.service';
 
 @NgModule({
   imports: [
@@ -20,7 +22,9 @@ import { IngredientSearchService } from './services/ingredient-search.service';
   providers: [
     IngredientService,
     IngredientSearchService,
-    RecipeService
+    IngredientUnitService,
+    RecipeService,
+    RecipeSearchService
   ]
 })
 export class NormadModule { }

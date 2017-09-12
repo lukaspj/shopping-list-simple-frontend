@@ -26,7 +26,10 @@ export const environment = {
     },
     recipes: {
       'create': 'http://sample-db-service.flynn.lukasj.org/recipes/create',
-      'list': 'http://sample-db-service.flynn.lukasj.org/recipes'
+      'list': 'http://sample-db-service.flynn.lukasj.org/recipes',
+      'get': (id) => `http://sample-db-service.flynn.lukasj.org/recipes/${id}`,
+      'delete': 'http://sample-db-service.flynn.lukasj.org/recipes/delete',
+      'update': 'http://sample-db-service.flynn.lukasj.org/recipes/update'
     },
     ingredients: {
       'list': 'http://sample-db-service.flynn.lukasj.org/ingredients',
