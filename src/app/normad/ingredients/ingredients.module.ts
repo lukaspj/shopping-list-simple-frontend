@@ -6,6 +6,7 @@ import { CreateComponent } from './create/create.component';
 import { DetailComponent } from './detail/detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UtilityModule } from '../../utility/utility.module';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { UtilityModule } from '../../utility/utility.module';
   declarations: [
     ListComponent,
     CreateComponent,
-    DetailComponent
+    DetailComponent,
+    EditComponent
   ],
   exports: [
     IngredientsRoutingModule

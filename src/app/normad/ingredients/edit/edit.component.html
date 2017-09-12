@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="card-divider card-header shopping-list-header">
+    <h1>Ingredients</h1>
+  </div>
+  <div class="card-section">
+    <form [formGroup]="ingredientForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="grid-x" *ngIf="ingredient">
+        <div class="cell small-6">
+            <label for="name">Name:</label>
+            <h1 class="ingredient-name"><input id="name" type="text" formControlName="name"></h1>
+            <div class="ingredient-description">
+              <app-md-editor [model]="ingredient.description" (modelChange)="ingredientForm.value.description = $event"></app-md-editor>
+            </div>
+            <p>
+              <label>Price:
+                <input type="number" formControlName="estprice">
+              </label>
+            </p>
+            <a class="button secondary" [routerLink]="['/ingredients', ingredient.id]">Go back</a>
+            <input type="submit" class="button primary" value="Save" />
+            <p class="ingredient-meta">
+              ID: {{ingredient.id}}, Created: {{ingredient.created_at | date:'dd. MMMM yy'}}
+            </p>
+        </div>
+        <div class="cell small-1"></div>
+        <div class="cell small-5">
+          <img src="{{ingredient.image}}" alt="{{ingredient.name}}" />
+          <label>Image:
+            <input type="text" formControlName="image">
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
