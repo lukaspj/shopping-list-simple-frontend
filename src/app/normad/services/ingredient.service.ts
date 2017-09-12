@@ -31,6 +31,24 @@ export class IngredientService {
       .catch(this.handleError);
   }
 
+  update(id, name, description, image, estprice) {
+    return this._http.post(environment.serviceUrls.ingredients.update, {
+      id: id,
+      name: name,
+      description: description,
+      image: image,
+      estprice: estprice
+    })
+      .catch(this.handleError);
+  }
+
+  delete(ingredient: IIngredient) {
+    return this._http.post(environment.serviceUrls.ingredients.delete, {
+      id: ingredient.id,
+    })
+      .catch(this.handleError);
+  }
+
   private handleError(err: HttpErrorResponse) {
     console.log(`Error in IngredientService, the error is: ${err.message}`);
     return Observable.throw(err.message);

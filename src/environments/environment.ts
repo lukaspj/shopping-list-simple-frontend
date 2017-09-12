@@ -31,7 +31,9 @@ export const environment = {
     ingredients: {
       'list': 'http://sample-db-service.flynn.lukasj.org/ingredients',
       'get': (id) => `http://sample-db-service.flynn.lukasj.org/ingredients/${id}`,
-      'create': `http://sample-db-service.flynn.lukasj.org/ingredients/create`
+      'create': `http://sample-db-service.flynn.lukasj.org/ingredients/create`,
+      'update': `http://sample-db-service.flynn.lukasj.org/ingredients/update`,
+      'delete': `http://sample-db-service.flynn.lukasj.org/ingredients/delete`
     }
   }
 };
