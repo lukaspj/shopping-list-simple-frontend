@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { IIngredient } from '../../models/ingredient';
 import { IngredientService } from '../../services/ingredient.service';
@@ -7,7 +7,7 @@ import { IngredientService } from '../../services/ingredient.service';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.css']
+  styleUrls: ['./detail.component.scss']
 })
 export class DetailComponent implements OnInit, OnDestroy {
 
@@ -16,6 +16,7 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private _route: ActivatedRoute,
+    private _router: Router,
     private _ingredientService: IngredientService
   ) { }
 
@@ -29,5 +30,12 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  private delete(): void {
+    this._ingredientService.delete(this.ingredient)
+      .subscribe(res => {
+        this._router.navigate(['/ingredients']);
+      });
   }
 }

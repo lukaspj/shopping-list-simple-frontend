@@ -3,6 +3,26 @@
     <h1>Ingredients</h1>
   </div>
   <div class="card-section">
-
+    <div class="grid-x" *ngIf="ingredient">
+      <div class="cell small-6">
+        <h1 class="ingredient-name">{{ingredient.name}}</h1>
+        <div class="ingredient-description">
+          <markdown>{{ingredient.description}}</markdown>
+        </div>
+        <p>
+          Price: {{ingredient.estprice | currency:'DKK':'2:2-2'}}
+        </p>
+        <a class="button primary" [routerLink]="['/ingredients']">Go back</a>
+        <a class="button alert" (click)="delete()">Delete</a>
+        <a class="button secondary" [routerLink]="['/ingredients/edit', ingredient.id]">Edit</a>
+        <p class="ingredient-meta">
+          ID: {{ingredient.id}}, Created: {{ingredient.created_at | date:'dd. MMMM yy'}}
+        </p>
+      </div>
+      <div class="cell small-1"></div>
+      <div class="cell small-5">
+        <img src="{{ingredient.image}}" alt="{{ingredient.name}}" />
+      </div>
+    </div>
   </div>
 </div>
