@@ -7,10 +7,21 @@
       <h1>{{recipe.name}}</h1>
       <hr />
       <div class="recipe-description">
+        <h2>Description</h2>
         <markdown>{{recipe.description}}</markdown>
       </div>
       <hr />
+      <div class="recipe-ingredients">
+        <h2>Ingredients</h2>
+        <ul>
+          <li *ngFor="let ingredient of recipeIngredients">
+            {{ingredient.amount}}{{ingredient.unit}} {{getIngredient(ingredient.ingredient_id).name}}
+          </li>
+        </ul>
+      </div>
+      <hr />
       <div class="recipe-steps">
+        <h2>Steps</h2>
         <markdown>{{recipe.steps}}</markdown>
       </div>
       <hr />

@@ -6,6 +6,7 @@ import { CreateComponent } from './create/create.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UtilityModule } from '../../utility/utility.module';
 import { DetailComponent } from './detail/detail.component';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { DetailComponent } from './detail/detail.component';
   declarations: [
     ListComponent,
     CreateComponent,
-    DetailComponent
+    DetailComponent,
+    EditComponent
   ]
 })
 export class RecipesModule { }
