@@ -37,6 +37,13 @@ export const environment = {
       'create': `http://sample-db-service.flynn.lukasj.org/ingredients/create`,
       'update': `http://sample-db-service.flynn.lukasj.org/ingredients/update`,
       'delete': `http://sample-db-service.flynn.lukasj.org/ingredients/delete`
+    },
+    recipe_ingredients: {
+      'list': 'http://sample-db-service.flynn.lukasj.org/recipe_ingredients',
+      'list_for': (id) => `http://sample-db-service.flynn.lukasj.org/recipe_ingredients/${id}`,
+      'create': 'http://sample-db-service.flynn.lukasj.org/recipe_ingredients/create',
+      'update': 'http://sample-db-service.flynn.lukasj.org/recipe_ingredients/update',
+      'delete': 'http://sample-db-service.flynn.lukasj.org/recipe_ingredients/delete'
     }
   }
 };
