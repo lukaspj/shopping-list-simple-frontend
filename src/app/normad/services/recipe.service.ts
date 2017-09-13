@@ -16,6 +16,11 @@ export class RecipeService {
       .catch(this.handleError);
   }
 
+  latest(limit) {
+    return this._http.get<IRecipe[]>(environment.serviceUrls.recipes.latest(limit))
+      .catch(this.handleError);
+  }
+
   get(id) {
     return this._http.get<IRecipe>(environment.serviceUrls.recipes.get(id))
       .catch(this.handleError);

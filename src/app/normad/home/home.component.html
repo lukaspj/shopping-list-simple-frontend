@@ -1,3 +1,25 @@
-<p>
-  home works!
-</p>
+<div class="header">
+  Welcome to Normad!
+</div>
+
+<div class="content">
+  <p>
+    Lorem ipsum and so on..
+  </p>
+  <h1>Latest recipes</h1>
+  <div class="grid-x" *ngIf="latestRecipes">
+    <div class="cell medium-5" *ngIf="latestRecipes[0]">
+      <app-recipe-card [recipe]="latestRecipes[0]"></app-recipe-card>
+    </div>
+    <div class="cell medium-5 medium-offset-2" *ngIf="latestRecipes[1]">
+      <app-recipe-card [recipe]="latestRecipes[1]"></app-recipe-card>
+    </div>
+
+    <div class="cell medium-5" *ngIf="latestRecipes[2]">
+      <app-recipe-card [recipe]="latestRecipes[2]"></app-recipe-card>
+    </div>
+    <div class="cell medium-5 medium-offset-2" *ngIf="latestRecipes[3]">
+      <app-recipe-card [recipe]="latestRecipes[3]"></app-recipe-card>
+    </div>
+  </div>
+</div>

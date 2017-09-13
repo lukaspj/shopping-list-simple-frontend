@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-divider card-header">
+    <h1>{{recipe.name}}</h1>
+  </div>
+  <div class="card-image text-center">
+    <a [routerLink]="['/recipes', recipe.id]">
+      <img src="{{recipe.image}}" alt="{{recipe.name}}" />
+    </a>
+  </div>
+  <div class="card-section description">
+    <markdown>{{recipe.description}}</markdown>
+  </div>
+  <div class="card-section text-right">
+    <a [routerLink]="['/recipes', recipe.id]">Read more</a>
+  </div>
+</div>
