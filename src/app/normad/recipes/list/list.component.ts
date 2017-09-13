@@ -25,7 +25,7 @@ export class ListComponent implements OnInit {
       .switchMap(term => this._ingredientSearchService.search(term));
   }
 
-  private search(term: string): void {
+  search(term: string): void {
     this.searchTerms.next(term);
   }
 }
