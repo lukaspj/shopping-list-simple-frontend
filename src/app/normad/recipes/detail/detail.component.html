@@ -8,7 +8,14 @@
       <hr />
       <div class="recipe-description">
         <h2>Description</h2>
-        <markdown>{{recipe.description}}</markdown>
+        <div class="grid-x">
+          <div class="cell medium-5">
+            <markdown>{{recipe.description}}</markdown>
+          </div>
+          <div class="cell medium-5 medium-offset-2">
+            <img src="{{recipe.image}}" alt="{{recipe.name}}" />
+          </div>
+        </div>
       </div>
       <hr />
       <div class="recipe-ingredients">
@@ -25,9 +32,11 @@
         <markdown>{{recipe.steps}}</markdown>
       </div>
       <hr />
-      <a class="button primary" [routerLink]="['/recipes']">Go back</a>
-      <a class="button alert" (click)="delete()">Delete</a>
-      <a class="button secondary" [routerLink]="['/recipes/edit', recipe.id]">Edit</a>
+      <div class="expanded medium-collapse button-group">
+        <a class="button primary" onclick="history.back()">Go back</a>
+        <a class="button alert" (click)="delete()">Delete</a>
+        <a class="button secondary" [routerLink]="['/recipes/edit', recipe.id]">Edit</a>
+      </div>
       <p class="recipe-meta text-right">
         ID: {{recipe.id}}, Created: {{recipe.created_at | date:'dd. MMMM yy'}}
       </p>

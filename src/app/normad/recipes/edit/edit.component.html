@@ -3,7 +3,7 @@
     <h1>Add a new recipe</h1>
   </div>
   <div class="card-section">
-    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" novalidate>
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" novalidate *ngIf="recipe">
       <label>Name:
         <input type="text" formControlName="name">
       </label>
@@ -11,10 +11,10 @@
         <input type="text" formControlName="image">
       </label>
       <label>Description:
-        <app-md-editor (modelChange)="recipeForm.value.description = $event"></app-md-editor>
+        <app-md-editor [model]="recipe.description" (modelChange)="recipeForm.value.description = $event"></app-md-editor>
       </label>
       <label>Steps:
-        <app-md-editor (modelChange)="recipeForm.value.steps = $event"></app-md-editor>
+        <app-md-editor [model]="recipe.steps" (modelChange)="recipeForm.value.steps = $event"></app-md-editor>
       </label>
       <div class="new-ingredient-form">
         <form [formGroup]="newIngredientForm" (submit)="onSubmitNewIngredient($event)">
