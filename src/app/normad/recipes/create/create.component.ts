@@ -58,7 +58,8 @@ export class CreateComponent implements OnInit {
         } else {
           for (const recipeIngredient of this.recipeIngredients) {
             recipeIngredient.recipe_id = res.id;
-            this._recipeIngredientService.create(recipeIngredient);
+            this._recipeIngredientService.create(recipeIngredient)
+              .subscribe();
           }
           this._router.navigate([ '/recipes' ]);
         }
