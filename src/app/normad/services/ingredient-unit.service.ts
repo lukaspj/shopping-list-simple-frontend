@@ -22,4 +22,33 @@ export class IngredientUnitService {
       observer.complete();
     });
   }
+
+  convert(from, to, amount: number): Observable<number> {
+    return new Observable(observer => {
+      let handled = false;
+      if (from === to) {
+        observer.next(amount);
+        handled = true;
+      } else {
+        if (from === 'kg') {
+          amount *= 1000;
+          from = 'g';
+        }
+
+        if (from === 'g') {
+          if (to === 'g') {
+            observer.next(amount);
+            handled = true;
+          } else if (to === 'kg') {
+            observer.next(amount / 1000);
+            handled = true;
+          }
+        }
+      }
+      if (!handled) {
+        observer.error();
+      }
+      observer.complete();
+    });
+  }
 }

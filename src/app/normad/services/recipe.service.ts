@@ -29,12 +29,17 @@ export class RecipeService {
   }
 
   create(name, description, image, steps) {
-    return this._http.post(environment.serviceUrls.recipes.create, {
+    return this._http.post<IRecipe>(environment.serviceUrls.recipes.create, {
       name: name,
       description: description,
       image: image,
       steps: steps
     })
+      .catch(this.handleError);
+  }
+
+  update(recipe: IRecipe) {
+    return this._http.post<IRecipe>(environment.serviceUrls.recipes.update, recipe)
       .catch(this.handleError);
   }
 
