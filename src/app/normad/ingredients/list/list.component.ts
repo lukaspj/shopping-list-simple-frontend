@@ -1,7 +1,5 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IIngredient } from '../../models/ingredient';
-import { IngredientService } from '../../services/ingredient.service';
-import { Subject } from 'rxjs/Subject';
 import { IngredientSearchService } from '../../services/ingredient-search.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';

@@ -3,6 +3,9 @@ import { Observable } from 'rxjs/Observable';
 import { IRecipe } from '../../models/recipe';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { RecipeSearchService } from '../../services/recipe-search.service';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-list',
