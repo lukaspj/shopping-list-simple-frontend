@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeModule } from './home/home.module';
 
@@ -17,7 +16,6 @@ import { NormadModule } from './normad/normad.module';
     BrowserModule,
     HttpClientModule,
     HomeModule,
-    ShoppingListModule,
     NormadModule,
     AppRoutingModule
   ],
