@@ -1,4 +1,4 @@
-const dbUrl = 'https://normad-db.flynn.lukasj.org';
+const dbUrl = 'http://normad-db.flynn.lukasj.org';
 
 export const environment = {
   production: true,
