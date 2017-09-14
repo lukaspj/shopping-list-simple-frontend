@@ -5,6 +5,7 @@ import { IIngredient } from '../models/ingredient';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/do';
+import { DjangoListResponse } from '../models/django-response';
 
 @Injectable()
 export class IngredientService {
@@ -26,7 +27,7 @@ export class IngredientService {
   }
 
   create(name, description, image, estprice) {
-    return this._http.post(environment.serviceUrls.ingredients.create, {
+    return this._http.post<IIngredient>(environment.serviceUrls.ingredients.create, {
       name: name,
       description: description,
       image: image,
@@ -37,7 +38,7 @@ export class IngredientService {
   }
 
   update(id, name, description, image, estprice) {
-    return this._http.post(environment.serviceUrls.ingredients.update, {
+    return this._http.put<IIngredient>(environment.serviceUrls.ingredients.update(id), {
       id: id,
       name: name,
       description: description,
@@ -49,9 +50,7 @@ export class IngredientService {
   }
 
   delete(ingredient: IIngredient) {
-    return this._http.post(environment.serviceUrls.ingredients.delete, {
-      id: ingredient.id,
-    })
+    return this._http.delete(environment.serviceUrls.ingredients.delete(ingredient.id))
       .do(() => this._cachedIngredients = null)
       .catch(this.handleError);
   }
@@ -59,9 +58,9 @@ export class IngredientService {
   private updateCacheIfNecessary(): Observable<void> {
     if (this.cacheOutdated()) {
       return new Observable<void>(observer => {
-        this._http.get<IIngredient[]>(environment.serviceUrls.ingredients.list)
+        this._http.get<DjangoListResponse<IIngredient>>(environment.serviceUrls.ingredients.list)
           .subscribe(ingredients => {
-            this._cachedIngredients = ingredients;
+            this._cachedIngredients = ingredients.results;
             observer.next();
             observer.complete();
           });

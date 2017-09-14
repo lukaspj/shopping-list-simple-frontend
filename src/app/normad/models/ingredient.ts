@@ -4,5 +4,5 @@ export interface IIngredient {
   description: string;
   image: string;
   estprice: number;
-  created_at: Date;
+  created: Date;
 }

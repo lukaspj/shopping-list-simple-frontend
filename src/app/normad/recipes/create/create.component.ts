@@ -7,7 +7,7 @@ import { IngredientService } from '../../services/ingredient.service';
 import { IngredientUnitService } from '../../services/ingredient-unit.service';
 import { IIngredientUnit } from '../../models/ingredient-unit';
 import { IRecipeIngredient } from '../../models/recipe-ingredient';
-import { RecipeIngredientService } from '../../services/recipe-ingredient.service';
+import { IRecipe } from '../../models/recipe';
 
 @Component({
   selector: 'app-create',
@@ -25,7 +25,6 @@ export class CreateComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _recipeService: RecipeService,
-    private _recipeIngredientService: RecipeIngredientService,
     private _ingredientService: IngredientService,
     private _ingredientUnitService: IngredientUnitService,
     private _router: Router
@@ -51,16 +50,20 @@ export class CreateComponent implements OnInit {
 
   onSubmit() {
     const value = this.recipeForm.value;
-    this._recipeService.create(value.name, value.description, value.image, value.steps)
+    const recipe: IRecipe = {
+      id: null,
+      created: null,
+      name: value.name,
+      description: value.description,
+      steps: value.steps,
+      image: value.image,
+      ingredients: this.recipeIngredients
+    };
+    this._recipeService.create(recipe)
       .subscribe(res => {
         if (res.name && res.name === 'error') {
           console.log(res);
         } else {
-          for (const recipeIngredient of this.recipeIngredients) {
-            recipeIngredient.recipe_id = res.id;
-            this._recipeIngredientService.create(recipeIngredient)
-              .subscribe();
-          }
           this._router.navigate([ '/recipes' ]);
         }
       });
@@ -68,14 +71,14 @@ export class CreateComponent implements OnInit {
 
   onSubmitNewIngredient(e) {
     const value = this.newIngredientForm.value;
-    const recipeIngredient = this.recipeIngredients.find(x => x.ingredient_id === +value.ingredient);
+    const recipeIngredient = this.recipeIngredients.find(x => x.ingredient === +value.ingredient);
     if (recipeIngredient) {
       this._ingredientUnitService.convert(value.unit, recipeIngredient.unit, +value.amount)
         .subscribe(amount => recipeIngredient.amount += amount);
     } else {
       this.recipeIngredients.push({
-        recipe_id: -1,
-        ingredient_id: +value.ingredient,
+        recipe: null,
+        ingredient: +value.ingredient,
         amount: +value.amount,
         unit: value.unit
       });
@@ -87,6 +90,6 @@ export class CreateComponent implements OnInit {
   }
 
   removeIngredient(id) {
-    this.recipeIngredients = this.recipeIngredients.filter(x => x.ingredient_id !== id);
+    this.recipeIngredients = this.recipeIngredients.filter(x => x.ingredient !== id);
   }
 }

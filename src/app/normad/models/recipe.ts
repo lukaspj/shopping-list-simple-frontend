@@ -1,11 +1,11 @@
-import { IIngredient } from './ingredient';
+import { IRecipeIngredient } from './recipe-ingredient';
 
 export interface IRecipe {
   id: number;
   name: string;
   description: string;
   image: string;
-  ingredients: IIngredient[];
+  ingredients: IRecipeIngredient[];
   steps: string;
-  created_at: Date;
+  created: Date;
 }

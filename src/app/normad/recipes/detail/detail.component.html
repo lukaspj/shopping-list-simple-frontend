@@ -21,8 +21,8 @@
       <div class="recipe-ingredients">
         <h2>Ingredients</h2>
         <ul>
-          <li *ngFor="let ingredient of recipeIngredients">
-            {{ingredient.amount}}{{ingredient.unit}} {{getIngredient(ingredient.ingredient_id).name}}
+          <li *ngFor="let ingredient of recipe.ingredients">
+            {{ingredient.amount}}{{ingredient.unit}} {{getIngredient(ingredient.ingredient).name}}
           </li>
         </ul>
       </div>
@@ -38,7 +38,7 @@
         <a class="button secondary" [routerLink]="['/recipes/edit', recipe.id]">Edit</a>
       </div>
       <p class="recipe-meta text-right">
-        ID: {{recipe.id}}, Created: {{recipe.created_at | date:'dd. MMMM yy'}}
+        ID: {{recipe.id}}, Created: {{recipe.created | date:'dd. MMMM yy'}}
       </p>
     </div>
   </div>

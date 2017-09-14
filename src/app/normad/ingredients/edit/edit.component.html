@@ -19,7 +19,7 @@
             <a class="button secondary" [routerLink]="['/ingredients', ingredient.id]">Go back</a>
             <input type="submit" class="button primary" value="Save" />
             <p class="ingredient-meta">
-              ID: {{ingredient.id}}, Created: {{ingredient.created_at | date:'dd. MMMM yy'}}
+              ID: {{ingredient.id}}, Created: {{ingredient.created | date:'dd. MMMM yy'}}
             </p>
         </div>
         <div class="cell small-1"></div>

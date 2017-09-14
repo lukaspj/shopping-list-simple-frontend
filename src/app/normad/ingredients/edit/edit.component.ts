@@ -28,7 +28,7 @@ export class EditComponent implements OnInit, OnDestroy {
       name: [ '', Validators.required ],
       description: '',
       image: '',
-      estprice: ''
+      estprice: null
     });
     this.sub = this._route.params.subscribe(params => {
       const id = +params['id'];
@@ -53,7 +53,7 @@ export class EditComponent implements OnInit, OnDestroy {
     const value = this.ingredientForm.value;
     this._ingredientService.update(this.ingredient.id, value.name, value.description, value.image, value.estprice)
       .subscribe(res => {
-        if (res) {
+        if (res && res.name && res.name === 'error') {
           console.log(res);
         } else {
           this._router.navigate([ '/ingredients', this.ingredient.id ]);

@@ -7,7 +7,6 @@ import { RecipeService } from './services/recipe.service';
 import { IngredientSearchService } from './services/ingredient-search.service';
 import { RecipeSearchService } from './services/recipe-search.service';
 import { IngredientUnitService } from './services/ingredient-unit.service';
-import { RecipeIngredientService } from './services/recipe-ingredient.service';
 import { RecipeCardComponent } from './home/recipe-card/recipe-card.component';
 import { UtilityModule } from '../utility/utility.module';
 
@@ -29,7 +28,6 @@ import { UtilityModule } from '../utility/utility.module';
     IngredientSearchService,
     IngredientUnitService,
     RecipeService,
-    RecipeIngredientService,
     RecipeSearchService
   ]
 })

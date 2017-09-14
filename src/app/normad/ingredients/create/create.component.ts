@@ -23,7 +23,7 @@ export class CreateComponent implements OnInit {
       name: [ '', Validators.required ],
       description: '',
       image: '',
-      estprice: ''
+      estprice: null
     });
   }
 
@@ -31,7 +31,7 @@ export class CreateComponent implements OnInit {
     const value = this.ingredientForm.value;
     this._ingredientService.create(value.name, value.description, value.image, value.estprice)
       .subscribe(res => {
-        if (res) {
+        if (res && res.name && res.name === 'error') {
           console.log(res);
         } else {
           this._router.navigate([ '/ingredients' ]);

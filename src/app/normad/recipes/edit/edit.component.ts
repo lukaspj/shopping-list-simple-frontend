@@ -4,7 +4,6 @@ import { IIngredientUnit } from '../../models/ingredient-unit';
 import { IIngredient } from '../../models/ingredient';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RecipeService } from '../../services/recipe.service';
-import { RecipeIngredientService } from '../../services/recipe-ingredient.service';
 import { IngredientService } from '../../services/ingredient.service';
 import { IngredientUnitService } from '../../services/ingredient-unit.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,13 +22,11 @@ export class EditComponent implements OnInit, OnDestroy {
   newIngredientForm: FormGroup;
   ingredients: IIngredient[];
   units: IIngredientUnit[];
-  recipeIngredients: IRecipeIngredient[];
   private sub: Subscription;
 
   constructor(
     private _formBuilder: FormBuilder,
     private _recipeService: RecipeService,
-    private _recipeIngredientService: RecipeIngredientService,
     private _ingredientService: IngredientService,
     private _ingredientUnitService: IngredientUnitService,
     private _route: ActivatedRoute,
@@ -61,8 +58,6 @@ export class EditComponent implements OnInit, OnDestroy {
             steps: this.recipe.steps
           });
         });
-      this._recipeIngredientService.listFor(id)
-        .subscribe(recipeIngredients => this.recipeIngredients = recipeIngredients);
     });
     this._ingredientService.list()
       .subscribe(ingredients => this.ingredients = ingredients);
@@ -82,8 +77,8 @@ export class EditComponent implements OnInit, OnDestroy {
       description: value.description,
       name: value.name,
       image: value.image,
-      ingredients: null,
-      created_at: null
+      ingredients: this.recipe.ingredients,
+      created: null
     })
       .subscribe(res => {
         if (res && res.name && res.name === 'error') {
@@ -96,24 +91,20 @@ export class EditComponent implements OnInit, OnDestroy {
 
   onSubmitNewIngredient(e) {
     const value = this.newIngredientForm.value;
-    let recipeIngredient: IRecipeIngredient = this.recipeIngredients.find(x => x.ingredient_id === +value.ingredient);
+    let recipeIngredient: IRecipeIngredient = this.recipe.ingredients.find(x => x.ingredient === +value.ingredient);
     if (recipeIngredient) {
       this._ingredientUnitService.convert(value.unit, recipeIngredient.unit, +value.amount)
         .subscribe(amount => {
           recipeIngredient.amount += amount;
-          this._recipeIngredientService.update(recipeIngredient)
-            .subscribe(() => recipeIngredient.amount += amount);
-          recipeIngredient.amount -= amount;
         });
     } else {
       recipeIngredient = {
-        recipe_id: this.recipe.id,
-        ingredient_id: +value.ingredient,
+        recipe: this.recipe.id,
+        ingredient: +value.ingredient,
         amount: +value.amount,
         unit: value.unit
       };
-      this._recipeIngredientService.create(recipeIngredient)
-        .subscribe(() => this.recipeIngredients.push(recipeIngredient));
+      this.recipe.ingredients.push(recipeIngredient);
     }
   }
 
@@ -122,10 +113,6 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   removeIngredient(id) {
-    const recipeIngredient = this.recipeIngredients.find(x => x.ingredient_id === id);
-    this._recipeIngredientService.delete(recipeIngredient)
-      .subscribe(() =>
-        this.recipeIngredients = this.recipeIngredients.filter(x => x.ingredient_id !== id)
-      );
+    this.recipe.ingredients = this.recipe.ingredients.filter(x => x.ingredient !== id);
   }
 }

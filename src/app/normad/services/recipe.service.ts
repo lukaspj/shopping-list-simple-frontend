@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { IRecipe } from '../models/recipe';
+import { DjangoListResponse } from '../models/django-response';
 
 @Injectable()
 export class RecipeService {
@@ -11,13 +12,14 @@ export class RecipeService {
     private _http: HttpClient
   ) { }
 
-  list() {
-    return this._http.get<IRecipe[]>(environment.serviceUrls.recipes.list)
+  list(): Observable<IRecipe[]> {
+    return this._http.get<DjangoListResponse<IRecipe>>(environment.serviceUrls.recipes.list)
+      .map(x => x.results)
       .catch(this.handleError);
   }
 
   latest(limit) {
-    return this._http.get<IRecipe[]>(environment.serviceUrls.recipes.latest(limit))
+    return this._http.get<DjangoListResponse<IRecipe>>(environment.serviceUrls.recipes.latest(limit))
       .catch(this.handleError);
   }
 
@@ -27,24 +29,17 @@ export class RecipeService {
   }
 
   delete(recipe) {
-    return this._http.post(environment.serviceUrls.recipes.delete, {
-      id: recipe.id
-    })
+    return this._http.delete(environment.serviceUrls.recipes.delete(recipe.id))
       .catch(this.handleError);
   }
 
-  create(name, description, image, steps) {
-    return this._http.post<IRecipe>(environment.serviceUrls.recipes.create, {
-      name: name,
-      description: description,
-      image: image,
-      steps: steps
-    })
+  create(recipe: IRecipe) {
+    return this._http.post<IRecipe>(environment.serviceUrls.recipes.create, recipe)
       .catch(this.handleError);
   }
 
   update(recipe: IRecipe) {
-    return this._http.post<IRecipe>(environment.serviceUrls.recipes.update, recipe)
+    return this._http.put<IRecipe>(environment.serviceUrls.recipes.update(recipe.id), recipe)
       .catch(this.handleError);
   }
 

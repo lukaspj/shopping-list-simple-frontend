@@ -47,9 +47,9 @@
       </div>
       Ingredients:
       <ul *ngIf="ingredients">
-        <li *ngFor="let ingredient of recipeIngredients">
-          {{ingredient.amount}}{{ingredient.unit}} {{getIngredient(ingredient.ingredient_id).name}}
-          <a class="button primary" (click)="removeIngredient(ingredient.ingredient_id)">Remove</a>
+        <li *ngFor="let ingredient of recipe.ingredients">
+          {{ingredient.amount}}{{ingredient.unit}} {{getIngredient(ingredient.ingredient).name}}
+          <a class="button primary" (click)="removeIngredient(ingredient.ingredient)">Remove</a>
         </li>
       </ul>
       <br />
