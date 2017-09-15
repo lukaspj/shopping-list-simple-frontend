@@ -59,11 +59,13 @@ export class IngredientService {
     if (this.cacheOutdated()) {
       return new Observable<void>(observer => {
         this._http.get<DjangoListResponse<IIngredient>>(environment.serviceUrls.ingredients.list)
+          .catch(this.handleError)
           .subscribe(ingredients => {
             this._cachedIngredients = ingredients.results;
             observer.next();
             observer.complete();
-          });
+          })
+        ;
       });
     } else {
       return new Observable<void>(observer => {
