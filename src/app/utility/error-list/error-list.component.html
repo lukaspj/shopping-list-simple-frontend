@@ -1,0 +1,3 @@
+<app-callout *ngFor="let error of errorList; let i = index"
+             text="error"
+             (close)="errorList.splice(i, 1)"></app-callout>

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { IRecipeIngredient } from '../../models/recipe-ingredient';
 import { IIngredientUnit } from '../../models/ingredient-unit';
 import { IIngredient } from '../../models/ingredient';
@@ -15,7 +15,7 @@ import { IRecipe } from '../../models/recipe';
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
-export class EditComponent implements OnInit, OnDestroy {
+export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
 
   recipe: IRecipe;
   recipeForm: FormGroup;
@@ -23,6 +23,7 @@ export class EditComponent implements OnInit, OnDestroy {
   ingredients: IIngredient[];
   units: IIngredientUnit[];
   private sub: Subscription;
+  unitErrors: string[];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -65,6 +66,9 @@ export class EditComponent implements OnInit, OnDestroy {
       .subscribe(units => this.units = units);
   }
 
+  ngAfterViewInit() {
+  }
+
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
@@ -96,7 +100,8 @@ export class EditComponent implements OnInit, OnDestroy {
       this._ingredientUnitService.convert(value.unit, recipeIngredient.unit, +value.amount)
         .subscribe(amount => {
           recipeIngredient.amount += amount;
-        });
+        },
+          err => this.unitErrors.push(err));
     } else {
       recipeIngredient = {
         recipe: this.recipe.id,

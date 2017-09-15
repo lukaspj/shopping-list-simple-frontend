@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MdEditorComponent } from './md-editor/md-editor.component';
 import { FormsModule } from '@angular/forms';
 import { MarkdownModule } from 'angular2-markdown';
+import { CalloutComponent } from './callout/callout.component';
+import { ErrorListComponent } from './error-list/error-list.component';
 
 @NgModule({
   imports: [
@@ -10,10 +12,12 @@ import { MarkdownModule } from 'angular2-markdown';
     FormsModule,
     MarkdownModule
   ],
-  declarations: [ MdEditorComponent ],
+  declarations: [ MdEditorComponent, CalloutComponent, ErrorListComponent ],
   exports: [
     MdEditorComponent,
-    MarkdownModule
+    MarkdownModule,
+    CalloutComponent,
+    ErrorListComponent
   ]
 })
 export class UtilityModule { }

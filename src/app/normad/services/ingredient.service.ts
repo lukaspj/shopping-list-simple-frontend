@@ -58,6 +58,10 @@ export class IngredientService {
   private updateCacheIfNecessary(): Observable<void> {
     if (this.cacheOutdated()) {
       return new Observable<void>(observer => {
+        this._http.get(environment.serviceUrls.ingredients.list)
+          .subscribe(resp => {
+            console.log(`suserror: `, resp);
+          });
         this._http.get<DjangoListResponse<IIngredient>>(environment.serviceUrls.ingredients.list)
           .catch(this.handleError)
           .subscribe(ingredients => {

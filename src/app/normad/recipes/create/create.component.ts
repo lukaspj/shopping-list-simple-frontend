@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RecipeService } from '../../services/recipe.service';
@@ -21,6 +21,7 @@ export class CreateComponent implements OnInit {
   ingredients: IIngredient[];
   units: IIngredientUnit[];
   recipeIngredients: IRecipeIngredient[] = [];
+  unitErrors: string[] = [];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -74,7 +75,8 @@ export class CreateComponent implements OnInit {
     const recipeIngredient = this.recipeIngredients.find(x => x.ingredient === +value.ingredient);
     if (recipeIngredient) {
       this._ingredientUnitService.convert(value.unit, recipeIngredient.unit, +value.amount)
-        .subscribe(amount => recipeIngredient.amount += amount);
+        .subscribe(amount => recipeIngredient.amount += amount,
+          err => this.unitErrors.push(err));
     } else {
       this.recipeIngredients.push({
         recipe: null,

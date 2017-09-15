@@ -43,6 +43,7 @@
               <input type="submit" class="button primary" value="Add" [disabled]="!newIngredientForm.valid" />
             </div>
           </div>
+          <app-error-list [errorList]="unitErrors"></app-error-list>
         </form>
       </div>
       Ingredients:
