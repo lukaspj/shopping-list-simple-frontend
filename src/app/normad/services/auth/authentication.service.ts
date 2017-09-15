@@ -2,7 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../../environments/environment';
-import { Response } from '@angular/http';
+
+interface DjangoTokenResponse {
+  token: string;
+  user: {
+    date_joined: Date,
+    id: number,
+    is_active: boolean,
+    is_superuser: boolean;
+    username: string
+  };
+}
 
 @Injectable()
 export class AuthenticationService {
@@ -16,14 +26,14 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string): Observable<boolean> {
-    return this._http.post(environment.serviceUrls.auth.authenticate, {
+    return this._http.post<DjangoTokenResponse>(environment.serviceUrls.auth.authenticate, {
       username: username,
       password: password
     })
       .map(response => {
-        if (response) {
-          this.token = response['token'];
-          localStorage.setItem('currentUser', JSON.stringify({ username: username, token: response['token'] }));
+        if (response.token) {
+          this.token = response.token;
+          localStorage.setItem('currentUser', JSON.stringify({ username: username, token: response.token, user: response.user }));
           return true;
         } else {
           return false;

@@ -33,6 +33,7 @@ export const environment = {
     },
     auth: {
       authenticate: `${dbUrl}/api-token-auth/`,
+      register: `${dbUrl}/users/`,
       user_list: `${dbUrl}/users/`
     },
     units: {

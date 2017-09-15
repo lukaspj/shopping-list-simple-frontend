@@ -15,11 +15,15 @@ export class UserService {
   ) { }
 
   getUser(): Observable<User[]> {
-    const headers = new HttpHeaders({ 'Authorization': `JWT ${ this._authenticationService.token }` });
-
     return this._http.get<User[]>(environment.serviceUrls.auth.user_list, {
-      headers: headers
+      headers: this._authenticationService.getHeaders()
     });
   }
 
+  register(username, password) {
+    return this._http.post<User>(environment.serviceUrls.auth.register, {
+      username: username,
+      password: password
+    });
+  }
 }

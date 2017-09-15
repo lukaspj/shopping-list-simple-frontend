@@ -1,6 +1,7 @@
 export interface User {
+  id: number;
   username: string;
-  password: string;
-  firstName: string;
-  lastName: string;
+  date_joined: Date;
+  is_superuser: boolean;
+  is_active: boolean;
 }
