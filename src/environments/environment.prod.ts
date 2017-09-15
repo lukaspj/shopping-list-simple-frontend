@@ -20,10 +20,10 @@ export const environment = {
     },
     recipe_ingredients: {
       list: `${dbUrl}/recipe_ingredients`,
-      list_for: (id) => `${dbUrl}/recipe_ingredients/${id}`,
-      create: `${dbUrl}/recipe_ingredients/create`,
-      update: `${dbUrl}/recipe_ingredients/update`,
-      delete: `${dbUrl}/recipe_ingredients/delete`
+      list_for: (id) => `${dbUrl}/recipeingredients/${id}`,
+      create: `${dbUrl}/recipeingredients/create`,
+      update: `${dbUrl}/recipeingredients/update`,
+      delete: `${dbUrl}/recipeingredients/delete`
     }
   }
 };
