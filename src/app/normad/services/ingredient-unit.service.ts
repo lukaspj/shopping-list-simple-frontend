@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { IIngredientUnit } from '../models/ingredient-unit';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { DjangoOptions } from '../models/django-response';
+import { DjangoListResponse, DjangoOptions } from '../models/django-response';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -13,17 +13,8 @@ export class IngredientUnitService {
   ) { }
 
   list(): Observable<IIngredientUnit[]> {
-    return this._http.options<DjangoOptions>(environment.serviceUrls.recipe_ingredients.options)
-      .catch(this.handleError)
-      .map(o => {
-        // TODO it would be a good idea to make an endpoint for units, rather than receiving it through OPTIONS
-        return o.actions.POST.unit.choices.map(unit => {
-          return {
-            abbr: unit.value,
-            name: unit.display_name
-          };
-        });
-      });
+    return this._http.get<IIngredientUnit[]>(environment.serviceUrls.units.list)
+      .catch(this.handleError);
   }
 
   convert(from, to, amount: number): Observable<number> {

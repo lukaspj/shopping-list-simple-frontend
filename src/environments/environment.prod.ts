@@ -24,6 +24,13 @@ export const environment = {
       create: `${dbUrl}/recipeingredients/create`,
       update: `${dbUrl}/recipeingredients/update`,
       delete: `${dbUrl}/recipeingredients/delete`
+    },
+    auth: {
+      authenticate: `${dbUrl}/api-token-auth/`,
+      user_list: `${dbUrl}/users/`
+    },
+    units: {
+      list: `${dbUrl}/units/`
     }
   }
 };

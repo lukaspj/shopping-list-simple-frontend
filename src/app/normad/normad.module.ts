@@ -9,16 +9,22 @@ import { RecipeSearchService } from './services/recipe-search.service';
 import { IngredientUnitService } from './services/ingredient-unit.service';
 import { RecipeCardComponent } from './home/recipe-card/recipe-card.component';
 import { UtilityModule } from '../utility/utility.module';
+import { LoginComponent } from './login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthenticationService } from './services/auth/authentication.service';
+import { UserGuard } from './services/auth/user.guard';
 
 @NgModule({
   imports: [
     CommonModule,
     UtilityModule,
+    ReactiveFormsModule,
     NormadRoutingModule
   ],
   declarations: [
     HomeComponent,
-    RecipeCardComponent
+    RecipeCardComponent,
+    LoginComponent
   ],
   exports: [
     NormadRoutingModule
@@ -28,7 +34,9 @@ import { UtilityModule } from '../utility/utility.module';
     IngredientSearchService,
     IngredientUnitService,
     RecipeService,
-    RecipeSearchService
+    RecipeSearchService,
+    AuthenticationService,
+    UserGuard
   ]
 })
 export class NormadModule { }

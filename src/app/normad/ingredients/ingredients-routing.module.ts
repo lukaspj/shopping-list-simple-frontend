@@ -4,13 +4,14 @@ import { ListComponent } from './list/list.component';
 import { DetailComponent } from './detail/detail.component';
 import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
+import { UserGuard } from '../services/auth/user.guard';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       { path: '', component: ListComponent },
-      { path: 'create', component: CreateComponent },
-      { path: 'edit/:id', component: EditComponent },
+      { path: 'create', component: CreateComponent, canActivate: [ UserGuard ] },
+      { path: 'edit/:id', component: EditComponent, canActivate: [ UserGuard ] },
       { path: ':id', component: DetailComponent }
     ])
   ],

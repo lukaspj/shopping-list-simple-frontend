@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/do';
 import { DjangoListResponse } from '../models/django-response';
+import { AuthenticationService } from './auth/authentication.service';
 
 @Injectable()
 export class IngredientService {
@@ -13,7 +14,8 @@ export class IngredientService {
   private _cachedIngredients: IIngredient[];
 
   constructor(
-    private _http: HttpClient
+    private _http: HttpClient,
+    private _authenticationService: AuthenticationService
   ) { }
 
   list(): Observable<IIngredient[]> {
@@ -32,6 +34,8 @@ export class IngredientService {
       description: description,
       image: image,
       estprice: estprice
+    }, {
+      headers: this._authenticationService.getHeaders()
     })
       .do(() => this._cachedIngredients = null)
       .catch(this.handleError);
@@ -44,13 +48,17 @@ export class IngredientService {
       description: description,
       image: image,
       estprice: estprice
+    }, {
+      headers: this._authenticationService.getHeaders()
     })
       .do(() => this._cachedIngredients = null)
       .catch(this.handleError);
   }
 
   delete(ingredient: IIngredient) {
-    return this._http.delete(environment.serviceUrls.ingredients.delete(ingredient.id))
+    return this._http.delete(environment.serviceUrls.ingredients.delete(ingredient.id), {
+      headers: this._authenticationService.getHeaders()
+    })
       .do(() => this._cachedIngredients = null)
       .catch(this.handleError);
   }
@@ -58,10 +66,6 @@ export class IngredientService {
   private updateCacheIfNecessary(): Observable<void> {
     if (this.cacheOutdated()) {
       return new Observable<void>(observer => {
-        this._http.get(environment.serviceUrls.ingredients.list)
-          .subscribe(resp => {
-            console.log(`suserror: `, resp);
-          });
         this._http.get<DjangoListResponse<IIngredient>>(environment.serviceUrls.ingredients.list)
           .catch(this.handleError)
           .subscribe(ingredients => {
@@ -80,7 +84,6 @@ export class IngredientService {
   }
 
   private cacheOutdated(): boolean {
-    console.log('cacheOutdated ', !this._cachedIngredients);
     return !this._cachedIngredients;
   }
 

@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { IRecipe } from '../models/recipe';
 import { DjangoListResponse } from '../models/django-response';
+import { AuthenticationService } from './auth/authentication.service';
 
 @Injectable()
 export class RecipeService {
 
   constructor(
-    private _http: HttpClient
+    private _http: HttpClient,
+    private _authenticationService: AuthenticationService
   ) { }
 
   list(): Observable<IRecipe[]> {
@@ -29,17 +31,23 @@ export class RecipeService {
   }
 
   delete(recipe) {
-    return this._http.delete(environment.serviceUrls.recipes.delete(recipe.id))
+    return this._http.delete(environment.serviceUrls.recipes.delete(recipe.id), {
+      headers: this._authenticationService.getHeaders()
+    })
       .catch(this.handleError);
   }
 
   create(recipe: IRecipe) {
-    return this._http.post<IRecipe>(environment.serviceUrls.recipes.create, recipe)
+    return this._http.post<IRecipe>(environment.serviceUrls.recipes.create, recipe, {
+      headers: this._authenticationService.getHeaders()
+    })
       .catch(this.handleError);
   }
 
   update(recipe: IRecipe) {
-    return this._http.put<IRecipe>(environment.serviceUrls.recipes.update(recipe.id), recipe)
+    return this._http.put<IRecipe>(environment.serviceUrls.recipes.update(recipe.id), recipe, {
+      headers: this._authenticationService.getHeaders()
+  })
       .catch(this.handleError);
   }
 
