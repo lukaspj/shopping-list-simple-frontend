@@ -19,6 +19,7 @@ export const environment = {
       delete: (id) => `${dbUrl}/ingredients/${id}/`
     },
     recipe_ingredients: {
+      options: `${dbUrl}/recipeingredients`,
       list: `${dbUrl}/recipe_ingredients`,
       list_for: (id) => `${dbUrl}/recipeingredients/${id}`,
       create: `${dbUrl}/recipeingredients/create`,
@@ -27,6 +28,7 @@ export const environment = {
     },
     auth: {
       authenticate: `${dbUrl}/api-token-auth/`,
+      register: `${dbUrl}/users/`,
       user_list: `${dbUrl}/users/`
     },
     units: {
