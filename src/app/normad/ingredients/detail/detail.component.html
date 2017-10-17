@@ -13,8 +13,8 @@
           Price: {{ingredient.estprice | currency:'DKK':'2:2-2'}}
         </p>
         <a class="button primary" [routerLink]="['/ingredients']">Go back</a>
-        <a class="button alert" (click)="delete()">Delete</a>
-        <a class="button secondary" [routerLink]="['/ingredients/edit', ingredient.id]">Edit</a>
+        <a *ngIf="isAdmin" class="button alert" (click)="delete()">Delete</a>
+        <a *ngIf="isAdmin" class="button secondary" [routerLink]="['/ingredients/edit', ingredient.id]">Edit</a>
         <p class="ingredient-meta">
           ID: {{ingredient.id}}, Created: {{ingredient.created | date:'dd. MMMM yy'}}
         </p>

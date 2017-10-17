@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { RecipeService } from './recipe.service';
 import { IRecipe } from '../models/recipe';
+import {AuthenticationService} from "./auth/authentication.service";
 
 @Injectable()
 export class RecipeSearchService {
@@ -9,10 +10,11 @@ export class RecipeSearchService {
   private _cachedRecipes: IRecipe[];
 
   constructor(
-    private _recipeService: RecipeService
+    private _recipeService: RecipeService,
+    private _authenticationService: AuthenticationService
   ) { }
 
-  search(term: string): Observable<IRecipe[]> {
+  search(term: string, all: boolean = false): Observable<IRecipe[]> {
     const lower_term = term.toLocaleLowerCase();
     return this.updateCacheIfNecessary()
       .map(recipes => {

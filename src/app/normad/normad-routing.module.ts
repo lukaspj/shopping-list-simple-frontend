@@ -4,6 +4,7 @@ import { IngredientsModule } from './ingredients/ingredients.module';
 import { HomeComponent } from './home/home.component';
 import { RecipesModule } from './recipes/recipes.module';
 import { LoginComponent } from './login/login.component';
+import {MainComponent} from "./main/main.component";
 
 // This is needed for AOT to work, as we are lazy-loading the modules below
 const dynamically_loaded_modules = [
@@ -15,6 +16,7 @@ const dynamically_loaded_modules = [
 export const _normadRoutes: Routes = [
   {
     path: '',
+    component: MainComponent,
     children: [
       {
         path: 'ingredients',

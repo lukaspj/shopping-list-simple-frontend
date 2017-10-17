@@ -6,6 +6,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {AuthenticationService} from "../../services/auth/authentication.service";
 
 @Component({
   selector: 'app-list',
@@ -18,9 +19,11 @@ export class ListComponent implements OnInit {
 
   ingredients: Observable<IIngredient[]>;
   private searchTerms = new BehaviorSubject<string>('');
+  isAdmin: boolean;
 
   constructor(
-    private _ingredientSearchService: IngredientSearchService
+    private _ingredientSearchService: IngredientSearchService,
+    private _authenticationService: AuthenticationService
   ) { }
 
   ngOnInit() {
@@ -28,6 +31,8 @@ export class ListComponent implements OnInit {
       .debounceTime(300)
       .distinctUntilChanged()
       .switchMap(term => this._ingredientSearchService.search(term));
+    this._authenticationService.isAdmin()
+      .subscribe(x => this.isAdmin = x);
   }
 
   search(term: string): void {

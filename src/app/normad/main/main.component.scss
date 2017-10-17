@@ -1,0 +1,8 @@
+@import "../../../main";
+
+.content-container {
+  @include breakpoint(medium up) {
+    margin-top: 3em;
+  }
+  padding: 0;
+}

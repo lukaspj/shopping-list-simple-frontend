@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from './services/auth/authentication.service';
 import { UserGuard } from './services/auth/user.guard';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { UserGuard } from './services/auth/user.guard';
   declarations: [
     HomeComponent,
     RecipeCardComponent,
-    LoginComponent
+    LoginComponent,
+    MainComponent
   ],
   exports: [
     NormadRoutingModule

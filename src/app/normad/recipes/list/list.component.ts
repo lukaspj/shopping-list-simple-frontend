@@ -6,6 +6,7 @@ import { RecipeSearchService } from '../../services/recipe-search.service';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
+import {AuthenticationService} from "../../services/auth/authentication.service";
 
 @Component({
   selector: 'app-list',
@@ -16,16 +17,20 @@ export class ListComponent implements OnInit {
 
   recipes: Observable<IRecipe[]>;
   private searchTerms = new BehaviorSubject<string>('');
+  isAdmin: boolean;
 
   constructor(
-    private _ingredientSearchService: RecipeSearchService
+    private _recipeSearchService: RecipeSearchService,
+    private _authenticationService: AuthenticationService
   ) { }
 
   ngOnInit() {
     this.recipes = this.searchTerms
       .debounceTime(300)
       .distinctUntilChanged()
-      .switchMap(term => this._ingredientSearchService.search(term));
+      .switchMap(term => this._recipeSearchService.search(term));
+    this._authenticationService.isAdmin()
+      .subscribe(x => this.isAdmin = x);
   }
 
   search(term: string): void {

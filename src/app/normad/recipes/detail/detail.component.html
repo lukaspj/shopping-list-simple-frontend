@@ -34,8 +34,8 @@
       <hr />
       <div class="expanded medium-collapse button-group">
         <a class="button primary" onclick="history.back()">Go back</a>
-        <a class="button alert" (click)="delete()">Delete</a>
-        <a class="button secondary" [routerLink]="['/recipes/edit', recipe.id]">Edit</a>
+        <a *ngIf="isAdmin" class="button alert" (click)="delete()">Delete</a>
+        <a *ngIf="isAdmin" class="button secondary" [routerLink]="['/recipes/edit', recipe.id]">Edit</a>
       </div>
       <p class="recipe-meta text-right">
         ID: {{recipe.id}}, Created: {{recipe.created | date:'dd. MMMM yy'}}

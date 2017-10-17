@@ -26,6 +26,6 @@
       </tr>
       </tbody>
     </table>
-    <a [routerLink]="['/ingredients/create']" class="button primary">Add a new ingredient</a>
+    <a *ngIf="isAdmin" [routerLink]="['/ingredients/create']" class="button primary">Add a new ingredient</a>
   </div>
 </div>
