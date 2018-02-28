@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { IRecipe } from '../models/recipe';
 import { DjangoListResponse } from '../models/django-response';
 import { AuthenticationService } from './auth/authentication.service';
+import "rxjs/add/operator/do";
 
 @Injectable()
 export class RecipeService {

@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { RecipeService } from './recipe.service';
 import { IRecipe } from '../models/recipe';
-import {AuthenticationService} from "./auth/authentication.service";
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { DjangoListResponse } from '../models/django-response';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class RecipeSearchService {
 
-  private _cachedRecipes: IRecipe[];
-
   constructor(
-    private _recipeService: RecipeService,
-    private _authenticationService: AuthenticationService
+    private _http: HttpClient,
   ) { }
 
-  search(term: string, all: boolean = false): Observable<IRecipe[]> {
+  search(term: string): Observable<IRecipe[]> {
+    return this._http.get<DjangoListResponse<IRecipe>>(environment.serviceUrls.recipes.search_name_contains(term))
+      .map(x => x.results)
+      .catch(this.handleError);
+  }
+  /*
     const lower_term = term.toLocaleLowerCase();
     return this.updateCacheIfNecessary()
       .map(recipes => {
@@ -41,5 +44,10 @@ export class RecipeSearchService {
         observer.complete();
       });
     }
+  }*/
+
+  private handleError(err: HttpErrorResponse) {
+    console.log(`Error in RecipeSearchService, the error is: ${err.message}`);
+    return Observable.throw(err.message);
   }
 }

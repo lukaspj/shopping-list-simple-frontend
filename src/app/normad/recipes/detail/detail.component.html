@@ -22,7 +22,7 @@
         <h2>Ingredients</h2>
         <ul *ngIf="ingredients">
           <li *ngFor="let ingredient of recipe.ingredients">
-            {{ingredient.amount}}{{ingredient.unit}} {{getIngredient(ingredient.ingredient).name}}
+            {{ingredient.amount}}{{ingredient.unit}} {{ingredient.ingredient.name}}
           </li>
         </ul>
       </div>
